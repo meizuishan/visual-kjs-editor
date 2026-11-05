@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 2,
+  "documents": [],
+  "sourceDirectories": [
+    "src",
+    "gradle",
+    ".github",
+    "examples/templates",
+    "examples/verification"
+  ],
+  "sourceFiles": [
+    ".gitattributes",
+    ".gitignore",
+    "build.gradle",
+    "settings.gradle",
+    "gradle.properties",
+    "gradlew",
+    "gradlew.bat",
+    "dependencies.lock.json",
+    "compatibility-versions.lock.json",
+    "LICENSE",
+    "NOTICE.md",
+    "docs/recipe-template.schema.json",
+    "scripts/Install-Release.ps1",
+    "scripts/Migrate-Workspace.ps1",
+    "scripts/Test-Installer.ps1",
+    "scripts/Test-Migration.ps1",
+    "scripts/Package-Release.ps1",
+    "scripts/Verify-Release.ps1",
+    "scripts/release-files.json"
+  ]
+}

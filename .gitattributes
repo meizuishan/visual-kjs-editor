@@ -1,0 +1,21 @@
+# Disable autocrlf on generated files, they always generate with LF
+# Add any extra files or paths here to make git stop saying they
+# are changed when only line endings change.
+src/generated/**/.cache/* text eol=lf
+src/generated/**/*.json text eol=lf
+
+# Exclude local work records from source archives.
+AGENTS.md export-ignore
+HANDOFF.md export-ignore
+CHANGELOG.md export-ignore
+.codex export-ignore
+docs/research export-ignore
+docs/verification.json export-ignore
+docs/GITHUB_RELEASE.md export-ignore
+docs/WORKSPACE_CLEANUP.md export-ignore
+
+# Keep descriptive pages on the web, outside source downloads.
+*.md export-ignore
+*.rst export-ignore
+NOTICE.md -export-ignore
+docs/distribution/** export-ignore

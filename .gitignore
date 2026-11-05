@@ -1,0 +1,64 @@
+### Gradle ###
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/**/out/
+
+.run/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.eclipse/
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/**/bin/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Minecraft Modding ###
+run/
+!**/src/**/run/
+**/src/generated/**/.cache/
+repo/
+!**/src/**/repo/
+
+libs/
+run-client/
+run-server/
+run-gametest/
+
+run-v2/
+run-v*/
+
+# Local diagnostics and reusable isolated-world fixtures are not source artifacts.
+/logs/
+/.verification-fixtures/
+
+# Local project instructions and work records are not public source.
+/AGENTS.md
+/HANDOFF.md
+/CHANGELOG.md
+/.codex/
+/*.jsonl
+/examples/research/
+/docs/*
+!/docs/distribution/
+!/docs/artwork/
+!/docs/recipe-template.schema.json
