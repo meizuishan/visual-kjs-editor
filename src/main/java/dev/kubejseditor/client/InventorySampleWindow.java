@@ -14,7 +14,7 @@ public final class InventorySampleWindow {
     private final Consumer<ItemStack> picked;
     private final List<ItemStack> samples=new ArrayList<>();
     private boolean open,moving,dragging;private int x=-1,y=-1,width=202,height=144,cell=20;private double grabX,grabY,startX,startY;
-    private ItemStack held=ItemStack.EMPTY;private String status="拖到配方槽位 · 背包物品不消耗";
+    private ItemStack held=ItemStack.EMPTY;private String status="拖到物品槽位 · 背包物品不消耗";
     public InventorySampleWindow(Function<Object,List<WorkspaceScreen.GhostTarget>> targets,Consumer<ItemStack> picked){this.targets=targets;this.picked=picked;}
     public boolean isOpen(){return open;}
     public Rect2i bounds(){return new Rect2i(x,y,width,height);}

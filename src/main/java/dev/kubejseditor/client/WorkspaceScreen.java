@@ -120,7 +120,7 @@ public final class WorkspaceScreen extends Screen {
         if(tab==3){buildReview();return;}
         if(tab==4){buildExisting();return;}
         // Full validation is performed on explicit preview/apply, not every click, resize or keystroke.
-        if(tab==5){int fw=Math.min(86,(imageWidth-24)/4),machineX=listX+(fw+4)*2;button("选择配方",listX,48,fw,this::browseSimpleRecipes);button("使用说明",listX+fw+4,48,fw,()->showText("强制兼容",simpleHelp()));button("拖入机器",machineX,48,fw,()->showText("拖入机器","从 JEI 把机器拖到此按钮，按真实加工分类筛选配方"));button("生物掉落",listX+(fw+4)*3,48,fw,()->LootDataBrowser.entities(this));ghosts.add(new GhostTarget(new Rect2i(machineX,48,fw,20),false,value->{if(value instanceof ItemStack machine)CompatMachines.choose(this,machine);}));}
+        if(tab==5){int fw=Math.min(86,(imageWidth-20)/3),machineX=listX+(fw+4)*2;button("选择配方",listX,48,fw,this::browseSimpleRecipes);button("使用说明",listX+fw+4,48,fw,()->showText("强制兼容",simpleHelp()));button("拖入机器",machineX,48,fw,()->showText("拖入机器","从 JEI 把机器拖到此按钮，按真实加工分类筛选配方"));ghosts.add(new GhostTarget(new Rect2i(machineX,48,fw,20),false,value->{if(value instanceof ItemStack machine)CompatMachines.choose(this,machine);}));}
         else if(tab==2){button("加工配方",listX,48,75,()->{stage();createTab=0;listOffset=propertyOffset=0;rebuildWidgets();});button("模组参数",listX+78,48,75,()->{stage();createTab=1;listOffset=propertyOffset=0;rebuildWidgets();});}
         else if(tab==1){button("现有配方",listX,48,82,()->browseRecipes(false));button("现有物品",listX+85,48,82,this::browseItems);button("生物掉落",listX+170,48,82,()->LootDataBrowser.entities(this));}
         else {button("+配方",listX,48,80,this::newRecipe);button("+注册物品",listX+83,48,90,()->newItem(true));}

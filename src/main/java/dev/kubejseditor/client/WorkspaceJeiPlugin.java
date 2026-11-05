@@ -24,7 +24,7 @@ public final class WorkspaceJeiPlugin implements IModPlugin {
         registration.addGlobalGuiHandler(new IGlobalGuiHandler(){
             @Override public Collection<Rect2i> getGuiExtraAreas(){
                 var screen=net.minecraft.client.Minecraft.getInstance().screen;
-                var window=screen instanceof CompatibilityScreen c?c.inventoryWindow():screen instanceof WorkspaceScreen w?w.inventoryWindow():null;
+                var window=screen instanceof CompatibilityScreen c?c.inventoryWindow():screen instanceof WorkspaceScreen w?w.inventoryWindow():screen instanceof LootVisualScreen l?l.inventoryWindow():null;
                 return window!=null&&window.isOpen()?List.of(window.bounds()):List.of();
             }
         });
@@ -38,6 +38,8 @@ public final class WorkspaceJeiPlugin implements IModPlugin {
         registration.addGhostIngredientHandler(CompatibilityScreen.class,compatibilityGhostHandler());
         registration.addGuiScreenHandler(FieldPatchScreen.class,screen->{int w=screen.width,h=screen.height;return new IGuiProperties(){public Class<FieldPatchScreen> screenClass(){return FieldPatchScreen.class;}public int guiLeft(){return 0;}public int guiTop(){return 0;}public int guiXSize(){return Math.max(280,w-112);}public int guiYSize(){return h;}public int screenWidth(){return w;}public int screenHeight(){return h;}};});
         registration.addGhostIngredientHandler(FieldPatchScreen.class,patchGhostHandler());
+        registerLootScreen(registration,LootTableScreen.class);
+        registerLootScreen(registration,LootEntryScreen.class);
         registration.addGuiScreenHandler(WorkspaceScreen.class,screen->{
             if(screen.width<2||screen.height<2||screen.guiBounds().getWidth()<2||screen.guiBounds().getHeight()<2)return null;
             // JEI compares the previous properties to the new snapshot after GUI resizing.
@@ -68,6 +70,21 @@ public final class WorkspaceJeiPlugin implements IModPlugin {
             public void onComplete(){}
         };}
     public static IGhostIngredientHandler<FieldPatchScreen> patchGhostHandler(){return new IGhostIngredientHandler<FieldPatchScreen>(){public <I> List<Target<I>> getTargetsTyped(FieldPatchScreen screen,ITypedIngredient<I> ingredient,boolean start){var result=new ArrayList<Target<I>>();for(var target:screen.ghostTargets(ingredient.getIngredient()))result.add(new Target<>(){public Rect2i getArea(){return target.area();}public void accept(I value){target.accept().accept(value);}});return result;}public void onComplete(){}};}
+    private static <T extends LootVisualScreen> void registerLootScreen(IGuiHandlerRegistration registration,Class<T> type){
+        registration.addGuiScreenHandler(type,screen->{int w=screen.width,h=screen.height,content=screen.contentWidth();return new IGuiProperties(){
+            public Class<T> screenClass(){return type;}public int guiLeft(){return 0;}public int guiTop(){return 0;}
+            public int guiXSize(){return content;}public int guiYSize(){return h;}public int screenWidth(){return w;}public int screenHeight(){return h;}
+        };});
+        registration.addGhostIngredientHandler(type,lootGhostHandler());
+    }
+    public static <T extends LootVisualScreen> IGhostIngredientHandler<T> lootGhostHandler(){return new IGhostIngredientHandler<>(){
+        public <I> List<Target<I>> getTargetsTyped(T screen,ITypedIngredient<I> ingredient,boolean start){
+            var targets=new ArrayList<Target<I>>();for(var target:screen.dropTargets(ingredient.getIngredient()))targets.add(new Target<>(){
+                public Rect2i getArea(){return target.area();}public void accept(I value){target.accept().accept(value);}
+            });return targets;
+        }
+        public void onComplete(){}
+    };}
     @Override public void registerAdvanced(IAdvancedRegistration registration){
         JeiRecipeButtons.register(registration);
     }

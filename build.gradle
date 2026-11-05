@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.23.0'
+version = '0.23.1'
 group = 'dev.kubejseditor'
 base { archivesName = 'kubejs-editor' }
 java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
